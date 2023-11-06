@@ -9,8 +9,8 @@ public class TestTorneo {
     public static int N_PARTIDAS = 1000;
 
     public static void main(String[] args) {
-        System.out.println("Orden información: Gana 1, Empate, Gana 2");
-        System.out.println("-----------------------------------------");
+        System.out.println("                              Gana 1   Empate   Gana 2");
+        System.out.println("------------------------------------------------------");
 
         torneo_aleatorio_aleatorio();
         torneo_aleatorio_evaluar();
@@ -28,8 +28,9 @@ public class TestTorneo {
         JugadorEvaluar j2 = new JugadorAlfaBeta(new EvaluadorCK(), profundidad);
         Juego juego = new Juego<>(j1, j2, e);
 
-        System.out.println("Resultados del torneo Aleatorio vs AlfaBeta (p=" + profundidad + ")");
+        System.out.print("Aleatorio vs AlfaBeta (p=" + profundidad + ")   ");
         ver_torneo(juego);
+        System.out.println();
     }
 
     private static void torneo_aleatorio_evaluar() {
@@ -39,8 +40,9 @@ public class TestTorneo {
         JugadorEvaluar j2 = new JugadorEvaluar<>(new EvaluadorCK());
         Juego juego = new Juego<>(j1, j2, e);
 
-        System.out.println("Resultados del torneo Aleatorio vs Evaluar");
+        System.out.print("Aleatorio vs Evaluar          ");
         ver_torneo(juego);
+        System.out.println();
     }
 
     private static void torneo_aleatorio_aleatorio() {
@@ -50,8 +52,9 @@ public class TestTorneo {
         JugadorAleatorio j2 = new JugadorAleatorio<>();
         Juego juego = new Juego<>(j1, j2, e);
 
-        System.out.println("Resultados del torneo Aleatorio vs Aleatorio");
+        System.out.print("Aleatorio vs Aleatorio        ");
         ver_torneo(juego);
+        System.out.println();
     }
 
     private static void ver_torneo(Juego juego) {
