@@ -88,14 +88,14 @@ public class Juego<E extends EstadoJuego<E>, J1 extends Jugador<E>, J2 extends J
 
         int empates = n_partidas - (victorias_j1 + victorias_j2);
 
-        DecimalFormat numberFormat = new DecimalFormat("#.00%");
+        DecimalFormat numberFormat = new DecimalFormat("0.0%");
 
         System.out.println("Porcentaje Victorias Jugador1: " + numberFormat.format(
                 ((double)victorias_j1/(double)n_partidas)));
-        System.out.println("Porcentaje Victorias Jugador2: " + numberFormat.format(
-                ((double)victorias_j2/(double)n_partidas)));
         System.out.println("Porcentaje Empates: " + numberFormat.format(
                 ((double)empates/(double)n_partidas)));
+        System.out.println("Porcentaje Victorias Jugador2: " + numberFormat.format(
+                ((double)victorias_j2/(double)n_partidas)));
     }
     
 }
