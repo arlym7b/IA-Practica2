@@ -1,17 +1,32 @@
 package trocho;
 
+import mundoadversario.EstadoJuegoAprox;
 import mundosolitario.OverrideHashCode;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public class Trocho extends OverrideHashCode {
+public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho> {
+
+    /*
+     *
+     * VARIABLES
+     *
+     * */
+
     private boolean[][] tablero;
     private Punto posicion_j1;
     private Punto posicion_j2;
 
     private boolean turno1;        //true si es el turno del primer jugador
     private int tam;
+
+    /*
+     *
+     * CONSTRUCTORES
+     *
+     * */
 
     public Trocho(boolean[][] tablero, boolean turno1) {
         this.tablero = tablero;
@@ -38,7 +53,76 @@ public class Trocho extends OverrideHashCode {
         this.tam = tam;
     }
 
-    /* GETTERS PROPIOS */
+    /*
+     *
+     *  METODOS HEREDADOS
+     *
+     * */
+
+    @Override
+    public boolean ganaActual() {
+        return !this.turno1 && contar_accesibles() == 0;
+    }
+
+    @Override
+    public boolean ganaOtro() {
+        return this.turno1 && contar_accesibles() == 0;
+    }
+
+    @Override
+    public boolean agotado() {
+        return contar_accesibles() == 0;
+    }
+
+    @Override
+    public void ver() {
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trocho trocho = (Trocho) o;
+        return turno1 == trocho.turno1 && tam == trocho.tam && Arrays.equals(tablero, trocho.tablero) &&
+                posicion_j1.equals(trocho.posicion_j1) && posicion_j2.equals(trocho.posicion_j2);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(posicion_j1, posicion_j2, turno1, tam);
+        result = 31 * result + Arrays.hashCode(tablero);
+        return result;
+    }
+
+    @Override
+    public int[] codifica() {
+        return new int[0];
+    }
+
+    @Override
+    public List<Trocho> calculaSucesores() {
+        return null;
+    }
+
+    /*
+     *
+     *  METODOS PROPIOS
+     *
+     * */
+
+    // Return: nº casillas accesibles por el jugador
+    private int contar_accesibles(){
+        int accesibles = 0;
+
+        return accesibles;
+    }
+
+    /*
+    *
+    * GETTERS PROPIOS
+    *
+    * */
 
     public boolean[][] getTablero() {
         return tablero;
@@ -60,7 +144,11 @@ public class Trocho extends OverrideHashCode {
         return tam;
     }
 
-    /* GETTERS SOLICITADOS */
+    /*
+     *
+     * GETTERS SOLICITADOS
+     *
+     * */
 
     public int fb(){
         return this.posicion_j1.getX();
@@ -86,18 +174,4 @@ public class Trocho extends OverrideHashCode {
         return this.turno1;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Trocho trocho = (Trocho) o;
-        return turno1 == trocho.turno1 && tam == trocho.tam && Arrays.equals(tablero, trocho.tablero) && posicion_j1.equals(trocho.posicion_j1) && posicion_j2.equals(trocho.posicion_j2);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(posicion_j1, posicion_j2, turno1, tam);
-        result = 31 * result + Arrays.hashCode(tablero);
-        return result;
-    }
 }
