@@ -1,10 +1,7 @@
 package trocho;
 
 import mundosolitario.OverrideHashCode;
-import mundosolitario.RepresentacionEstadoOptimizacion;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 public class Punto extends OverrideHashCode {
