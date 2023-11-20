@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="049a3b0f-48e7-42e8-959c-4a6befa25282" name="Changes" comment="Changed gitignore.">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/conectak/TestTorneo.java" afterDir="false" />
+    <list default="true" id="049a3b0f-48e7-42e8-959c-4a6befa25282" name="Changes" comment="Más avance parte 2.">
+      <change afterPath="$PROJECT_DIR$/src/agentesolitario/Abiertos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agentesolitario/AgenteSolitario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agentesolitario/ArbolGenerico.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agentesolitario/NodoA.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/agentesolitario/NodoBasico.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/trocho/EvaluadorTrocho.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/trocho/TestTrocho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Practica2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Practica2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mundoadversario/Juego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mundoadversario/Juego.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trocho/Punto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trocho/Punto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trocho/Trocho.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trocho/Trocho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trochojunit/TestCodificaTrocho.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trochojunit/TestCodificaTrocho.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,45 +37,120 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2XX6sdMQveQNh8LXeukoVem1ks6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration name="TestTorneo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="conectak.TestTorneo" />
+}</component>
+  <component name="RunManager" selected="JUnit.TestSucesoresTrocho">
+    <configuration name="TestCodificaTrocho" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Practica2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="conectak.*" />
+          <option name="PATTERN" value="trochojunit.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="trochojunit" />
+      <option name="MAIN_CLASS_NAME" value="trochojunit.TestCodificaTrocho" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestEvaluacionTrocho" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practica2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="trochojunit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="trochojunit" />
+      <option name="MAIN_CLASS_NAME" value="trochojunit.TestEvaluacionTrocho" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestFinalesTrocho" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practica2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="trochojunit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="trochojunit" />
+      <option name="MAIN_CLASS_NAME" value="trochojunit.TestFinalesTrocho" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestOperacionesTrocho" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practica2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="trochojunit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="trochojunit" />
+      <option name="MAIN_CLASS_NAME" value="trochojunit.TestOperacionesTrocho" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestSucesoresTrocho" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Practica2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="trochojunit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="trochojunit" />
+      <option name="MAIN_CLASS_NAME" value="trochojunit.TestSucesoresTrocho" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestTorneo" />
+        <item itemvalue="JUnit.TestSucesoresTrocho" />
+        <item itemvalue="JUnit.TestCodificaTrocho" />
+        <item itemvalue="JUnit.TestOperacionesTrocho" />
+        <item itemvalue="JUnit.TestFinalesTrocho" />
+        <item itemvalue="JUnit.TestEvaluacionTrocho" />
       </list>
     </recent_temporary>
   </component>
@@ -79,6 +164,12 @@
       <updated>1698763289524</updated>
       <workItem from="1698763291215" duration="3581000" />
       <workItem from="1698935764807" duration="5469000" />
+      <workItem from="1699294861616" duration="2409000" />
+      <workItem from="1700308135597" duration="615000" />
+      <workItem from="1700350817718" duration="2961000" />
+      <workItem from="1700354370056" duration="70000" />
+      <workItem from="1700413684524" duration="5807000" />
+      <workItem from="1700503356180" duration="7280000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1698764174207</created>
@@ -94,7 +185,39 @@
       <option name="project" value="LOCAL" />
       <updated>1698764617683</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Parte 1 hecha, falta formato de tabla.">
+      <option name="closed" value="true" />
+      <created>1699297622820</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1699297622820</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Terminado formato parte 1. Parte 1 terminada.">
+      <option name="closed" value="true" />
+      <created>1699298099312</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1699298099312</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Avance Trocho (parte 2) y añadido paquete junit.">
+      <option name="closed" value="true" />
+      <created>1700354427903</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700354427903</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Más avance parte 2.">
+      <option name="closed" value="true" />
+      <created>1700423593152</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1700423593153</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +237,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit." />
     <MESSAGE value="Changed gitignore." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed gitignore." />
+    <MESSAGE value="Parte 1 hecha, falta formato de tabla." />
+    <MESSAGE value="Terminado formato parte 1. Parte 1 terminada." />
+    <MESSAGE value="Avance Trocho (parte 2) y añadido paquete junit." />
+    <MESSAGE value="Más avance parte 2." />
+    <option name="LAST_COMMIT_MESSAGE" value="Más avance parte 2." />
   </component>
 </project>
