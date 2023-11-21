@@ -26,6 +26,8 @@ public class TestFinalesTrocho extends TestTBaseTrocho{
 			System.out.println("Caso : " + i);
 			E e = (E) creaEstado(ganaOtro[i]);
 
+			verPrueba(i);
+
 			Assert.assertEquals("ganaOtro: Estado " + i + " agotado: " + e.agotado() + " ganaActual: " + e.ganaActual(),
 				e.ganaOtro(), true);
 		}
