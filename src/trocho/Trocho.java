@@ -120,7 +120,6 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
         int[] caracteristicas = new int[3];
 
         caracteristicas[0] = 1;
-        //caracteristicas[0] = this.turno1 ? 1 : -1;
         caracteristicas[1] = contador_disponibles(this.posicion_j1, copiar_tablero(this.tablero));
         caracteristicas[2] = contador_disponibles(this.posicion_j2, copiar_tablero(this.tablero));
 
