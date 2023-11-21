@@ -34,6 +34,7 @@ public class TestSucesoresTrocho extends TestTBaseTrocho {
 		for (Object[][][][] obj: casos) {
 			System.out.println("Procesando caso: " + cont);
 			e = (E) creaEstado(obj[0]);
+			e.ver();
 			sucesores = new LinkedList<>();
 			for(int i = 1; i < obj.length; i++) {
 				sucesores.add((E) creaEstado(obj[i]));
@@ -88,12 +89,12 @@ public class TestSucesoresTrocho extends TestTBaseTrocho {
 				System.out.println("Sucesor en conflicto:");
 				suc2.get(i).ver();
 
-//				System.out.println("-------------------------");
-//				System.out.println("Sucesores de Reales:");
-//				System.out.println("-------------------------");
-//				for(EstadoJuego p : sucesores) {
-//					p.ver();
-//				}
+				System.out.println("-------------------------");
+				System.out.println("Sucesores de Reales:");
+				System.out.println("-------------------------");
+				for(EstadoJuego p : sucesores) {
+					p.ver();
+				}
 				return false; //hay un sucesor que no está en la lista de los esperados
 			}//if !
 		}
@@ -102,7 +103,7 @@ public class TestSucesoresTrocho extends TestTBaseTrocho {
 		for(int i = 0; i < sucesores.size(); i++){
 			if(!suc2.contains(sucesores.get(i))){  //nota: contains utiliza equals para la comparación
 				System.out.println("  - El sucesor " + i + " no aparece (equals) entre los calculados por calculaSucesores");
-//				sucesores.get(i).ver();
+				sucesores.get(i).ver();
 				
 				System.out.println("***********************************");
 				System.out.println("Estado padre:");

@@ -36,6 +36,7 @@ public class TestCodificaTrocho extends TestTBaseTrocho {
 		for (Object[][][][] obj: casos) {
 			System.out.print("Procesando caso: " + cont);
 			e = (E) creaEstado(obj[0]);
+			e.ver();
 			int num = numCaracteristicas(obj[0]);
 			int[] codigo = caracteristicas(obj[0]);
 
@@ -48,8 +49,8 @@ public class TestCodificaTrocho extends TestTBaseTrocho {
 					+ "\nValor calculado: " + Arrays.toString(valorCalculado) + "\n");				
 			} else {
 				System.out.println(" : OK");
-//				e.ver();
-//				System.out.println(Arrays.toString(codigo));
+				e.ver();
+				System.out.println(Arrays.toString(codigo));
 			}
 			
 			Assert.assertTrue("No coincide el valor calculado " + valorCalculado +

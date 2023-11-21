@@ -106,12 +106,12 @@ public class TestTBaseTrocho {
 		     while(true) {
 		    	 try {
 		    		 readCase = (Object[][][][]) objectinputstream.readObject();
-				     System.out.println("Caso " + cont + "  longitud : " + readCase.length);
+				     //System.out.println("Caso " + cont + "  longitud : " + readCase.length);
 				     cont++;
 				     casos.add(readCase);
 
 		    	 } catch (EOFException e) {
-		    		 System.out.println("EOF");
+		    		 //System.out.println("EOF");
 		    		 objectinputstream.close();
 		    		 break;
 		    	 }
