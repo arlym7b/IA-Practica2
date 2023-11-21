@@ -1,8 +1,5 @@
 package trocho;
 
-import agentesolitario.AgenteSolitario;
-import agentesolitario.ArbolGenerico;
-import agentesolitario.NodoBasico;
 import mundoadversario.EstadoJuegoAprox;
 import mundosolitario.OverrideHashCode;
 
@@ -35,9 +32,6 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
 
         this.posicion_j1 = new Punto(0, 0);
         this.posicion_j2 = new Punto(n-1, n-1);
-        // Las posiciones iniciales quedan automáticamente bloqueadas
-        this.tablero[0][0] = true;
-        this.tablero[n-1][n-1] = true;
 
         this.turno1 = true;
         this.tam = n;
@@ -62,12 +56,12 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
 
     @Override
     public boolean ganaActual() {
-        return !this.turno1 && contar_accesibles(this.posicion_j2) == 0;
+        return !this.turno1 && contador_disponibles(this.posicion_j2, copiar_tablero(this.tablero)) == 0;
     }
 
     @Override
     public boolean ganaOtro() {
-        return this.turno1 && contar_accesibles(this.posicion_j1) == 0;
+        return this.turno1 && contador_disponibles(this.posicion_j1, copiar_tablero(this.tablero)) == 0;
     }
 
     @Override
@@ -111,8 +105,7 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Trocho trocho = (Trocho) o;
-        return turno1 == trocho.turno1 && tam == trocho.tam && Arrays.deepEquals(tablero, trocho.tablero) &&
-                posicion_j1.equals(trocho.posicion_j1) && posicion_j2.equals(trocho.posicion_j2);
+        return turno1 == trocho.turno1 && tam == trocho.tam && Arrays.deepEquals(tablero, trocho.tablero) && Objects.equals(posicion_j1, trocho.posicion_j1) && Objects.equals(posicion_j2, trocho.posicion_j2);
     }
 
     @Override
@@ -128,8 +121,8 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
 
         caracteristicas[0] = 1;
         //caracteristicas[0] = this.turno1 ? 1 : -1;
-        caracteristicas[1] = contar_accesibles(this.posicion_j1);
-        caracteristicas[2] = contar_accesibles(this.posicion_j2);
+        caracteristicas[1] = contador_disponibles(this.posicion_j1, copiar_tablero(this.tablero));
+        caracteristicas[2] = contador_disponibles(this.posicion_j2, copiar_tablero(this.tablero));
 
         return caracteristicas;
     }
@@ -144,74 +137,66 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
             Punto posicion_actual = this.posicion_j1;
 
             punto.setPunto(posicion_actual.getX() + 1, posicion_actual.getY());
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() - 1, posicion_actual.getY());
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX(), posicion_actual.getY() + 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX(), posicion_actual.getY() - 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() + 1, posicion_actual.getY() + 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() + 1, posicion_actual.getY() - 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() - 1, posicion_actual.getY() + 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() - 1, posicion_actual.getY() - 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), punto.getX(), punto.getY(), this.getPosicion_j2().getX(),
                         this.getPosicion_j2().getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
         }
@@ -221,74 +206,66 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
             Punto posicion_actual = this.posicion_j2;
 
             punto.setPunto(posicion_actual.getX() + 1, posicion_actual.getY());
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() - 1, posicion_actual.getY());
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX(), posicion_actual.getY() + 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX(), posicion_actual.getY() - 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() + 1, posicion_actual.getY() + 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() + 1, posicion_actual.getY() - 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() - 1, posicion_actual.getY() + 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
 
             punto.setPunto(posicion_actual.getX() - 1, posicion_actual.getY() - 1);
-            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY())){
+            if (punto_en_mapa(punto) && !ocupada(punto.getX(), punto.getY()) && !colision(punto)){
                 Trocho sucesor = new Trocho(this.getTam(), this.getPosicion_j1().getX(), this.getPosicion_j1().getY(),
                         punto.getX(), punto.getY(), !this.isTurno1(), copiar_tablero(this.getTablero()));
                 sucesor.tablero[posicion_actual.getX()][posicion_actual.getY()] = true;
-                sucesor.tablero[punto.getX()][punto.getY()] = true;
                 lista_sucesores.add(sucesor);
             }
         }
@@ -308,44 +285,83 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
     }
 
     // Return: nº casillas accesibles por el jugador
-    private int contar_accesibles(Punto posicion_jugador){
-        int contador;
+    private int contador_disponibles(Punto posicion, boolean[][] tablero){
+        int contador = 0;
+        LinkedList<Punto> abiertos = new LinkedList<>();
+        Punto punto = new Punto(0, 0);
 
-        if (posicion_jugador == this.posicion_j1){
-            contador = contador_en_amplitud(new Trocho(this.tam, posicion_jugador.getX(),
-                    posicion_jugador.getY(), this.posicion_j2.getX(),
-                    this.posicion_j2.getY(), this.turno1, this.tablero));
-        }
-        else {
-            contador = contador_en_amplitud(new Trocho(this.tam, this.posicion_j1.getX(),
-                    this.posicion_j1.getY(), posicion_jugador.getX(),
-                    posicion_jugador.getY(), this.turno1, this.tablero));
+        abiertos.add(posicion);
+
+        // Cuando nos quedemos sin puntos en abiertos, no quedan posiciones disponibles por añadir
+        while (!abiertos.isEmpty()){
+            // Cogemos el siguiente punto de abiertos y calculamos sus sucesores
+            punto = abiertos.poll();
+            List<Punto> nuevos_sucesores = puntos_sucesores(punto, tablero);
+            // Añadimos los nuevos sucesores a abiertos y aumentamos el contador para cada uno
+            for (Punto sucesor : nuevos_sucesores) {
+                abiertos.add(sucesor);
+                contador++;
+            }
+            // Marcamos el nodo actual como ya visitado
+            tablero[punto.getX()][punto.getY()] = true;
         }
 
         return contador;
     }
 
-    // Version modificada de búsqueda en amplitud para devolver el numero de nodos visitados
-    // Al no cambiar el turno, podemos mover solo un jugador hasta dejarlo sin movimientos
-    private int contador_en_amplitud (Trocho e){
-        ArbolGenerico<Trocho, NodoBasico<Trocho>> a = new ArbolGenerico<>();
-        a.put(e, new NodoBasico<Trocho>(null));
+    private List<Punto> puntos_sucesores(Punto punto, boolean[][] tablero) {
+        List<Punto> sucesores = new ArrayList<>();
+        Punto nuevo_punto = new Punto(0, 0);
 
-        LinkedList<Trocho> abiertos = new LinkedList<Trocho>();
-        int contador = 0;
+        nuevo_punto.setPunto(punto.getX() + 1, punto.getY());
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
 
-        while (e!=null && !this.agotado()) {
-            for (Trocho e2 : (List<Trocho>)e.calculaSucesores()){
-                if (!a.contains(e2)) {
-                    abiertos.offer(e2);
-                    a.put(e2, new NodoBasico<Trocho>(e));
-                }//if
-            }//for
-            e = abiertos.poll();
-            contador++;
-        }//while
+        nuevo_punto.setPunto(punto.getX() - 1, punto.getY());
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
 
-        return contador;
+        nuevo_punto.setPunto(punto.getX(), punto.getY() + 1);
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
+
+        nuevo_punto.setPunto(punto.getX(), punto.getY() - 1);
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
+
+        nuevo_punto.setPunto(punto.getX() + 1, punto.getY() + 1);
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
+
+        nuevo_punto.setPunto(punto.getX() + 1, punto.getY() - 1);
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
+
+        nuevo_punto.setPunto(punto.getX() - 1, punto.getY() + 1);
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
+
+        nuevo_punto.setPunto(punto.getX() - 1, punto.getY() - 1);
+        if (punto_en_mapa(nuevo_punto) && !tablero[nuevo_punto.getX()][nuevo_punto.getY()] && !colision(nuevo_punto)){
+            tablero[nuevo_punto.getX()][nuevo_punto.getY()] = true;
+            sucesores.add(new Punto(nuevo_punto.getX(), nuevo_punto.getY()));
+        }
+
+        return sucesores;
     }
 
     private boolean[][] copiar_tablero(boolean[][] original){
@@ -358,6 +374,10 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
         }
 
         return copia;
+    }
+
+    private boolean colision(Punto punto) {
+        return this.posicion_j1.equals(punto) || this.posicion_j2.equals(punto);
     }
 
     /*
