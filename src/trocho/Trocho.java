@@ -56,17 +56,18 @@ public class Trocho extends OverrideHashCode implements EstadoJuegoAprox<Trocho>
 
     @Override
     public boolean ganaActual() {
-        return !this.turno1 && contador_disponibles(this.posicion_j2, copiar_tablero(this.tablero)) == 0;
+        return false;
     }
 
     @Override
     public boolean ganaOtro() {
-        return this.turno1 && contador_disponibles(this.posicion_j1, copiar_tablero(this.tablero)) == 0;
+        return (this.turno1 && contador_disponibles(this.posicion_j1, copiar_tablero(this.tablero)) == 0) ||
+                (!this.turno1 && contador_disponibles(this.posicion_j2, copiar_tablero(this.tablero)) == 0);
     }
 
     @Override
     public boolean agotado() {
-        return calculaSucesores().isEmpty();
+        return false;
     }
 
     @Override
