@@ -58,6 +58,6 @@ public class TestTorneo {
     }
 
     private static void ver_torneo(Juego juego) {
-        juego.jugar_torneo(N_PARTIDAS);
+        juego.jugar_torneo(N_PARTIDAS, true);
     }
 }

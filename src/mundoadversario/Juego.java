@@ -69,7 +69,7 @@ public class Juego<E extends EstadoJuego<E>, J1 extends Jugador<E>, J2 extends J
         }
     }
 
-    public void jugar_torneo(int n_partidas){
+    public void jugar_torneo(int n_partidas, boolean puede_empatar){
         int resultado;
         int victorias_j1 = 0;
         int victorias_j2 = 0;
@@ -92,8 +92,10 @@ public class Juego<E extends EstadoJuego<E>, J1 extends Jugador<E>, J2 extends J
 
         System.out.print(numberFormat.format(((double)victorias_j1/(double)n_partidas)));
         System.out.print("    ");
-        System.out.print(numberFormat.format(((double)empates/(double)n_partidas)));
-        System.out.print("    ");
+        if (puede_empatar) {
+            System.out.print(numberFormat.format(((double) empates / (double) n_partidas)));
+            System.out.print("    ");
+        }
         System.out.print(numberFormat.format(((double)victorias_j2/(double)n_partidas)));
     }
     
