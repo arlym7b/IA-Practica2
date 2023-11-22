@@ -28,8 +28,11 @@ public class TestFinalesTrocho extends TestTBaseTrocho{
 
 			verPrueba(i);
 
+			//Assert.assertEquals("ganaOtro: Estado " + i + " agotado: " + e.agotado() + " ganaActual: " + e.ganaActual(),
+			//	e.ganaOtro(), true);
+
 			Assert.assertEquals("ganaOtro: Estado " + i + " agotado: " + e.agotado() + " ganaActual: " + e.ganaActual(),
-				e.ganaOtro(), true);
+				e.turno1(), e.ganaOtro());
 		}
 	}
 	
